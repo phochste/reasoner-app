@@ -13,39 +13,8 @@
     <h1>Eye Reasoner</h1>
     <MDBCard>
       <MDBCardBody class="w-100">
-        <MDBCardTitle>Authentication</MDBCardTitle>
-        <MDBCardText>
-          <div v-if="loggedIn">
-            <p class="text-success">
-              You are logged in as <em>{{ loggedIn }}</em
-              >.
-            </p>
-            <MDBBtn color="primary" @click="logout">Logout</MDBBtn>
-          </div>
-          <div v-else>
-            <MDBInput
-              v-model="oidcIssuer"
-              label="OIDC Issuer"
-              type="text"
-              required
-            />
-            <small class="text-danger" v-if="authError">{{ authError }}<br></small>
-            <MDBBtn color="primary" @click="login" style="margin-top: 1rem">Login</MDBBtn>
-          </div>
-        </MDBCardText>
-      </MDBCardBody>
-    </MDBCard>
-    <MDBCard>
-      <MDBCardBody class="w-100">
         <MDBCardTitle>Input: N3 Document</MDBCardTitle>
         <MDBCardText>
-          <div style="margin-bottom: 1rem">
-            <MDBSwitch
-              v-model="executeInBrowser"
-              label="Execute in browser instead of on server"
-              labelColor="primary"
-            ></MDBSwitch>
-          </div>
           <div style="margin-bottom: 1rem">
             <MDBSwitch
               v-model="isUrl"
