@@ -5,7 +5,6 @@ import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: 'https://w3c-cg.github.io/rdfsurfaces/demonstrator/', 
   css: {
     devSourcemap: true,
   },

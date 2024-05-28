@@ -22,16 +22,6 @@
               labelColor="primary"
             ></MDBSwitch>
           </div>
-          <div class="input-group input-group-sm" style="margin-bottom: 1rem">
-            <span class="input-group-text" id="outputPass">Implicit query</span>
-            <select class="form-select" aria-label="Output" v-model="outputPass" aria-describedby="outputPass" style="padding-bottom: 0;">
-              <option value="undefined" selected>None</option>
-              <option value="derivations">Derivations only</option>
-              <option value="deductive_closure">Deductive closure</option>
-              <option value="deductive_closure_plus_rules">Deductive closure plus rules</option>
-              <option value="grounded_deductive_closure_plus_rules">Grounded deductive closure plus rules</option>
-            </select>
-          </div>
           <MDBInput
             label="Dataset URL"
             type="url"
@@ -39,22 +29,12 @@
             v-if="isUrl"
           />
           <small class="text-danger" v-if="isUrl && n3docUrlError">{{ n3docUrlError }}<br></small>
-          <MDBInput
-            label="Query Document URL"
-            type="url"
-            v-model="n3queryUrl"
-            style="margin-top: 1rem"
-            v-if="isUrl && outputPass === 'undefined'"
-          />
-          <small class="text-danger" v-if="isUrl && n3queryUrlError">{{ n3queryUrlError }}<br></small>
-
           <MDBTextarea
             label="N3 Document"
             v-model="n3doc"
             style="margin-bottom: 1rem"
             v-if="!isUrl"
           />
-          <MDBTextarea label="N3 Query" v-model="n3query" v-if="!isUrl && outputPass === 'undefined'" />
         </MDBCardText>
 
         <MDBBtn color="primary" @click="execute" id="execute-btn"
@@ -175,7 +155,6 @@ export default {
       this.n3queryUrlError = "";
 
       let n3doc = this.n3doc;
-      let n3query = this.n3query;
 
       if (this.isUrl) {
         // Check if valid URLs
@@ -198,29 +177,19 @@ export default {
           }
           return response.text();
         });
-        if (this.outputPass === 'undefined') {
-          n3query = await fetch(this.n3queryUrl, {
-            cors: "cors",
-          }).then((response) => {
-            if (response.status !== 200) {
-              this.n3queryUrlError = `Error ${response.status}: ${response.statusText}`;
-            }
-            return response.text();
-          });
-        }
       }
       if (this.n3docUrlError || this.n3queryUrlError) {
         return;
       }
 
-      if (this.outputPass !== 'undefined') {
-        n3query = undefined;
-      }
-
       const n3reasoner = this.executeInBrowser ? n3reasoner_js : n3reasoner_server;
-      let options = { output: this.outputPass === 'undefined' ? undefined : this.outputPass, outputType: "string" };
+      let options = {
+        output: undefined ,
+        bnodeRelabeling: false ,
+        outputType: "string" 
+      }
       try {
-        this.output = await n3reasoner(n3doc, n3query, options);
+        this.output = await n3reasoner(n3doc, undefined, options);
       } catch (e) {
         this.output = e.message;
       }
