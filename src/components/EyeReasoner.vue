@@ -184,7 +184,7 @@ export default {
 
       const n3reasoner = this.executeInBrowser ? n3reasoner_js : n3reasoner_server;
       let options = {
-        output: undefined ,
+        output: "none",
         bnodeRelabeling: false ,
         outputType: "string" 
       }
