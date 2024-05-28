@@ -10,7 +10,7 @@
       data-recalc-dims="1"
   /></a>
   <MDBContainer>
-    <h1>Eye Reasoner</h1>
+    <h1>RDF Surfaces Reasoner</h1>
     <MDBCard>
       <MDBCardBody class="w-100">
         <MDBCardTitle>Input: N3 Document</MDBCardTitle>
