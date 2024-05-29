@@ -1,14 +1,4 @@
 <template>
-  <a href="https://github.com/smessie/reasoner-app"
-    ><img
-      loading="lazy"
-      width="149"
-      height="149"
-      src="/forkme_right_gray.png"
-      class="attachment-full size-full fork"
-      alt="Fork me on GitHub"
-      data-recalc-dims="1"
-  /></a>
   <MDBContainer>
     <h1>RDF Surfaces Reasoner</h1>
     <MDBCard>
@@ -17,6 +7,7 @@
         <MDBCardText>
           <div style="margin-bottom: 1rem">
             <MDBSwitch
+              defaultChecked
               v-model="isUrl"
               label="Via URL"
               labelColor="primary"
@@ -100,7 +91,7 @@ export default {
       n3docUrl: "",
       n3queryUrl: `${window.location.origin}/outputAllTriplesDefaultQuery.n3`,
       output: "",
-      isUrl: true,
+      isUrl: false,
       loggedIn: undefined,
       oidcIssuer: "",
       outputPass: "derivations",
